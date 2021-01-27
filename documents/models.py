@@ -10,7 +10,7 @@ class Document(models.Model):
     title = models.CharField(max_length=300)
     user = models.ForeignKey(User,related_name="docs",on_delete=models.CASCADE)
     file = models.FileField(upload_to='pdf_folder',verbose_name='document-file')
-
+    has_page = models.BooleanField(default=False)
 
     def __str__(self) -> str:
         return self.title
