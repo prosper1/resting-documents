@@ -6,13 +6,20 @@ from helpers import pdf
 
 def save():
     documents = Document.objects.filter(has_page=False)
-    
+
     for document in documents:
-        pages = pdf_to_text(document.file,"")
-        map(lambda page: TextPages.objects.create(
-            document = document,
-            page_number = pages.find(page),
-            content = page
-        ),pages)
+        page_count =0
+        pages = pdf_to_text(document.file.path,"")
+
+        for page in pages:
+            page = TextPages.objects.create(
+                document = document,
+                page_number = page_count,
+                content = page
+                )
+            page_count = page_count + 1
+            page.save()
+
+        
 
 
