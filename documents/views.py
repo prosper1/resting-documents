@@ -8,26 +8,26 @@ from rest_framework.authentication import (
     TokenAuthentication,
     SessionAuthentication
 )
+from rest_framework.filters import SearchFilter
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework.pagination import PageNumberPagination
 
 # Create your views here.
 
 class DocumentPagesView(viewsets.ModelViewSet):
-    authentication_classes = [
-        BaseAuthentication,
-        TokenAuthentication,
-        SessionAuthentication
-    ]
-    queryset = Document.objects.all()
+    # authentication_classes = [
+    #     BaseAuthentication,
+    #     TokenAuthentication,
+    #     SessionAuthentication
+    # ]
+    
+    queryset = TextPages.objects.all()
+    serializer_class = DocumentSerializer
+    filter_backends = (DjangoFilterBackend, SearchFilter)
+    filter_fields = ('document',)
+    search_fields = ['document']
     http_method_names = ['get']
+    
 
-    def get_queryset(self):
-        """
-            Get and permission cart
-        """
-        try:
-            username = self.request.content_params.get('')
-            pages = TextPages.objects.filter()
-
-            
-
-            return pages 
+    
+ 
