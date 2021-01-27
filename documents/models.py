@@ -22,4 +22,4 @@ class TextPages(models.Model):
 
 
     def __str__(self) -> str:
-        return self.document.title
+        return self.content[0:30] + '...'
