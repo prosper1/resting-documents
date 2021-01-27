@@ -1,9 +1,12 @@
+from typing import Text
+from django.db.models import fields
 from rest_framework import serializers
-from .models import TextPages
+from rest_framework.relations import StringRelatedField
+from .models import Document, TextPages
 
 
 
-class DocumentSerializer(serializers.ModelSerializer):
+class DocumentPagesSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = TextPages
@@ -11,4 +14,18 @@ class DocumentSerializer(serializers.ModelSerializer):
             'document',
             'page_number',
             'content',
+        )
+
+
+class DocumentSerializer(serializers.ModelSerializer):
+    pages = StringRelatedField(many=True)
+
+    class Meta:
+        model = Document
+        fields = (
+            'id',
+            'title',
+            'file',
+            'has_page',
+            'pages',
         )
