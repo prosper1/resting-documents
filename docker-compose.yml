@@ -9,7 +9,7 @@ services:
       - POSTGRES_PASSWORD=postgres
   web:
     build: .
-    command: python manage.py runserver 0.0.0.0:8000
+    command: /bin/bash -c "sleep 7; python3 manage.py runserver -h 0.0.0.0 -p 8000 -r -d"
     volumes:
       - .:/code
     ports:
