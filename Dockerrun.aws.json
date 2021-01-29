@@ -1,5 +1,13 @@
 {
-  "containerDefinitions": [
+    "AWSEBDockerrunVersion": "1",
+    "Volumes": [
+      {
+        "ContainerDirectory": "/var/app",
+        "HostDirectory": "/var/app"
+      }
+    ],
+    "Logging": "/var/eb_log",
+    "containerDefinitions": [
       {
           "environment": [
               {
@@ -37,18 +45,9 @@
           "portMappings": [
               {
                   "containerPort": 8000,
-                  "hostPort": 8000
+                  "hostPort": 80
               }
           ]
       }
-  ],
-  "family": "",
-  "volumes": [
-      {
-          "host": {
-              "sourcePath": "."
-          },
-          "name": "_"
-      }
   ]
-}
+  }
