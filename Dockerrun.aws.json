@@ -1,10 +1,54 @@
 {
-    "AWSEBDockerrunVersion": "1",
-    "Volumes": [
+  "containerDefinitions": [
       {
-        "ContainerDirectory": "/var/app",
-        "HostDirectory": "/var/app"
+          "environment": [
+              {
+                  "name": "POSTGRES_DB",
+                  "value": "postgres"
+              },
+              {
+                  "name": "POSTGRES_USER",
+                  "value": "postgres"
+              },
+              {
+                  "name": "POSTGRES_PASSWORD",
+                  "value": "postgres"
+              }
+          ],
+          "essential": true,
+          "image": "postgres",
+          "name": "db"
+      },
+      {
+          "command": [
+              "python",
+              "manage.py",
+              "runserver",
+              "0.0.0.0:8000"
+          ],
+          "essential": true,
+          "mountPoints": [
+              {
+                  "containerPath": "/code",
+                  "sourceVolume": "_"
+              }
+          ],
+          "name": "web",
+          "portMappings": [
+              {
+                  "containerPort": 8000,
+                  "hostPort": 8000
+              }
+          ]
       }
-    ],
-    "Logging": "/var/eb_log"
-  }
+  ],
+  "family": "",
+  "volumes": [
+      {
+          "host": {
+              "sourcePath": "."
+          },
+          "name": "_"
+      }
+  ]
+}
